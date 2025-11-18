@@ -1,73 +1,50 @@
-function App() {
+import React from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
+import Splash from './components/Splash'
+import Home from './components/Home'
+import Products from './components/Products'
+import ProductDetail from './components/ProductDetail'
+import Articles from './components/Articles'
+import Profile from './components/Profile'
+import FloatingWhatsApp from './components/FloatingWhatsApp'
+import { Home as HomeIcon, BookOpen, User, Grid2X2 } from 'lucide-react'
+
+function TabBar() {
+  const base = 'flex-1 flex flex-col items-center justify-center gap-1 text-xs'
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_50%)]"></div>
-
-      <div className="relative min-h-screen flex items-center justify-center p-8">
-        <div className="max-w-2xl w-full">
-          {/* Header with Flames icon */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center mb-6">
-              <img
-                src="/flame-icon.svg"
-                alt="Flames"
-                className="w-24 h-24 drop-shadow-[0_0_25px_rgba(59,130,246,0.5)]"
-              />
-            </div>
-
-            <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
-              Flames Blue
-            </h1>
-
-            <p className="text-xl text-blue-200 mb-6">
-              Build applications through conversation
-            </p>
-          </div>
-
-          {/* Instructions */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 shadow-xl mb-6">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                1
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Describe your idea</h3>
-                <p className="text-blue-200/80 text-sm">Use the chat panel on the left to tell the AI what you want to build</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                2
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Watch it build</h3>
-                <p className="text-blue-200/80 text-sm">Your app will appear in this preview as the AI generates the code</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                3
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Refine and iterate</h3>
-                <p className="text-blue-200/80 text-sm">Continue the conversation to add features and make changes</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="text-center">
-            <p className="text-sm text-blue-300/60">
-              No coding required • Just describe what you want
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <nav className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur border-t border-slate-200 h-16 grid grid-cols-4 z-40">
+      <Link to="/home" className={`${base} text-slate-600 hover:text-[#0057FF]`}>
+        <HomeIcon className="w-5 h-5" />
+        <span>Beranda</span>
+      </Link>
+      <Link to="/produk" className={`${base} text-slate-600 hover:text-[#0057FF]`}>
+        <Grid2X2 className="w-5 h-5" />
+        <span>Produk</span>
+      </Link>
+      <Link to="/artikel" className={`${base} text-slate-600 hover:text-[#0057FF]`}>
+        <BookOpen className="w-5 h-5" />
+        <span>Artikel</span>
+      </Link>
+      <Link to="/profile" className={`${base} text-slate-600 hover:text-[#0057FF]`}>
+        <User className="w-5 h-5" />
+        <span>Profil</span>
+      </Link>
+    </nav>
   )
 }
 
-export default App
+export default function App() {
+  return (
+    <div className="min-h-screen bg-[#F7F9FC] text-slate-900 font-sans">
+      <Routes>
+        <Route path="/" element={<Splash />} />
+        <Route path="/home" element={<><Home /><TabBar /></>} />
+        <Route path="/produk" element={<><Products /><TabBar /></>} />
+        <Route path="/produk/:id" element={<ProductDetail />} />
+        <Route path="/artikel" element={<><Articles /><TabBar /></>} />
+        <Route path="/profile" element={<><Profile /><TabBar /></>} />
+      </Routes>
+      <FloatingWhatsApp />
+    </div>
+  )
+}
